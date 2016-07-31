@@ -1,0 +1,95 @@
+\documentclass[a4paper, 11pt]{scrartcl}
+
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{enumerate}
+
+\newtheorem{lemma}{Lemma}
+
+\title{Physics notes}
+\author{Thomas Diggelmann}
+
+\begin{document}
+\maketitle
+
+\section*{Maxwell equations}
+
+For the electric field $\textbf{E}$, the magnetic field $\textbf{B}$, the current density $\mathbf{j}$ and the charge density $\rho$, the Maxwell equations read
+%
+\begin{align*}
+  \nabla\cdot\mathbf{E} = \frac{1}{\varepsilon_0}\rho, && \nabla\times\mathbf{E}+\partial_t\mathbf{B}=0, \\
+  \nabla\cdot\mathbf{B} = 0,
+  && \nabla\times\mathbf{B}+\frac{1}{c^2}\partial_t\mathbf{E}=\mu_0\mathbf{j},
+\end{align*}
+%
+where $c^2 = \frac{1}{\epsilon_0\mu_0}$. The two equations containing the charge and current densities $\rho$ and $\mathbf{j}$ on the RHS are called \emph{inhomogeneous} while the two equations with trivial RHS are called \emph{homogeneous}.
+
+\section*{Continuity and conserved quantities}
+
+A continuity equation is a particular partial differential equation that describes the transport of some quantity $q$. It links the time rate of change of that quantities density $\rho$ with the space rate of change of the quantities current density $\mathbf{j}$
+\begin{equation*}
+    \nabla\cdot\mathbf{j}+\partial_t\rho=\sigma,
+\end{equation*}
+where
+\begin{itemize}
+  \item $\rho$ is the amount of the quantity $q$ per unit volume,
+  \item $\mathbf{j}$ is the flux of $q$,
+  \item $\sigma$ is the generation of $q$ per unit volume per unit time. Terms that generate ($\sigma > 0$) or remove ($\sigma < 0$) $q$ are referred to as ``sources'' and ``sinks'' respectively.
+\end{itemize}
+%
+If the quantity $q$ is \emph{conserved}, the generation $\sigma$ vanishes and the equation reads
+\begin{equation*}
+    \nabla\cdot\mathbf{j}+\partial_t\rho=0.
+\end{equation*}
+
+\section*{Vector calculus identities}
+
+\begin{enumerate}[(i)]
+  \item $\mathbf{A}\times(\mathbf{B}\times\mathbf{C}) = \mathbf{B}(\mathbf{A}\cdot\mathbf{C})-\mathbf{C}(\mathbf{A}\cdot\mathbf{B})$
+  \item $\operatorname{div}(\operatorname{rot}\mathbf{A}) =
+  \nabla\cdot(\nabla\times\mathbf{A}) = 0\label{eq:divrot}$
+  \item $\operatorname{rot}(\operatorname{grad}\mathbf{\varphi}) =
+  \nabla\times(\nabla\mathbf{\varphi}) = \mathbf{0}\label{eq:rotgrad}$
+\end{enumerate}
+
+\begin{proof}
+  For \eqref{eq:divrot} observe that
+  \begin{align*}
+    \nabla\cdot(\nabla\times\mathbf{A})
+    &= \varepsilon_{ijk} \nabla_i \nabla_j A_k \\
+    &= \varepsilon_{jik} \nabla_j \nabla_i A_k
+    && \text{Rename $i \leftrightarrow j$} \\
+    &= \varepsilon_{jik} \nabla_i \nabla_j A_k
+    && \text{Schwarz's theorem} \\
+    &= -\varepsilon_{ijk} \nabla_i \nabla_j A_k
+    && \text{Antisymmetry of $\varepsilon_{ijk}$} \\
+    &= -\nabla\cdot(\nabla\times\mathbf{A}),
+  \end{align*}
+  and since $\nabla\cdot(\nabla\times\mathbf{A})$ is equal to its negative value it must vanish.
+\end{proof}
+
+\section*{Distributions}
+Below $\delta$ is the Dirac delta function, $\theta$ is the Heaviside function, $\operatorname{sgn}$ is the Signum function and $\hat{}$ is the Fourier transform operator.
+\begin{enumerate}[(i)]
+  \item $\theta' = \delta$
+  \item $\operatorname{sgn}' = 2\delta\label{eq:dsgn}$
+  \item $\hat{1} = (2\pi)^n\delta$
+\end{enumerate}
+
+\begin{proof}
+  Let $\varphi \in \mathcal{S}(\mathbf{R}^n)$ be a test function.
+  For \eqref{eq:dsgn} observe that
+  %
+  \begin{align*}
+    \left<\frac{\operatorname{d}}{\operatorname{dx}}\operatorname{sgn},\varphi\right> &= -\left<\operatorname{sgn},\frac{\operatorname{d}}{\operatorname{dx}}\varphi\right> \\
+    &=  -\int_\mathbf{R}\operatorname{sgn}(x)\frac{\operatorname{d}}{\operatorname{dx}}\varphi(x)\operatorname{dx} \\
+    &= -(-\varphi(x)\rvert_{-\infty}^0+\varphi(x)\rvert_{0}^\infty) \\
+    &= 2\varphi(0) \\
+    &= \int_\mathbf{R}\delta(x)\varphi(x)\operatorname{dx}\\
+    &= 2\left<\delta,\varphi\right>.
+  \end{align*}
+\end{proof}
+
+\end{document}
