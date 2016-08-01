@@ -5,6 +5,8 @@
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{enumerate}
+\usepackage{commath} %pd, od, ...%
+\usepackage{mathtools} %\coloneqq, ...%
 
 \newtheorem{lemma}{Lemma}
 
@@ -46,7 +48,11 @@ If the quantity $q$ is \emph{conserved}, the generation $\sigma$ vanishes and th
 
 \section*{Vector calculus identities}
 
+With $\{\mathbf{x}, \mathbf{A}, \mathbf{B}, \mathbf{C}\} \in \mathbf{R}^n$, $\nabla_i \coloneqq \pd{}{x_i}$ and $r \coloneqq \|\mathbf{x}\| = \sqrt{x_i x_i}$
 \begin{enumerate}[(i)]
+  \item $\pd{x_i}{x_j}=\delta_{ij}$
+  \item $\pd{r}{x_j}=\frac{x_j}{r}$
+  \item $\pd{}{x_j}\frac{1}{r}=-\frac{x_j}{r^3}$
   \item $\mathbf{A}\times(\mathbf{B}\times\mathbf{C}) = \mathbf{B}(\mathbf{A}\cdot\mathbf{C})-\mathbf{C}(\mathbf{A}\cdot\mathbf{B})$
   \item $\operatorname{div}(\operatorname{rot}\mathbf{A}) =
   \nabla\cdot(\nabla\times\mathbf{A}) = 0\label{eq:divrot}$
@@ -83,12 +89,12 @@ Below $\delta$ is the Dirac delta function, $\theta$ is the Heaviside function, 
   For \eqref{eq:dsgn} observe that
   %
   \begin{align*}
-    \left<\frac{\operatorname{d}}{\operatorname{dx}}\operatorname{sgn},\varphi\right> &= -\left<\operatorname{sgn},\frac{\operatorname{d}}{\operatorname{dx}}\varphi\right> \\
-    &=  -\int_\mathbf{R}\operatorname{sgn}(x)\frac{\operatorname{d}}{\operatorname{dx}}\varphi(x)\operatorname{dx} \\
+    \left<\od{}{x}\operatorname{sgn},\varphi\right> &= -\left<\operatorname{sgn},\od{}{x}\varphi\right> \\
+    &=  -\int_\mathbf{R}\operatorname{sgn}(x)\od{}{x}\varphi(x)\operatorname{dx} \\
     &= -(-\varphi(x)\rvert_{-\infty}^0+\varphi(x)\rvert_{0}^\infty) \\
     &= 2\varphi(0) \\
-    &= \int_\mathbf{R}\delta(x)\varphi(x)\operatorname{dx}\\
-    &= 2\left<\delta,\varphi\right>.
+    &= \int_\mathbf{R}\delta(x)\varphi(x)\dif x\\
+    &= 2\left<\delta,\varphi\right>.\qedhere
   \end{align*}
 \end{proof}
 
