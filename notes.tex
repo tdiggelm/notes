@@ -5,8 +5,13 @@
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{enumerate}
+\usepackage{bm} %bold greek, ...%
 \usepackage{commath} %pd, od, ...%
 \usepackage{mathtools} %\coloneqq, ...%
+
+
+\renewcommand{\vec}[1]{\bm{#1}}
+\newcommand{\uvec}[1]{\hat{\vec{#1}}}
 
 \newtheorem{lemma}{Lemma}
 
@@ -18,52 +23,86 @@
 
 \section*{Maxwell equations}
 
-For the electric field $\textbf{E}$, the magnetic field $\textbf{B}$, the current density $\mathbf{j}$ and the charge density $\rho$, the Maxwell equations read
+For the electric field $\vec{E}$, the magnetic field $\vec{B}$, the current density $\vec{j}$ and the charge density $\rho$, the Maxwell equations read
 %
 \begin{align*}
-  \nabla\cdot\mathbf{E} = \frac{1}{\varepsilon_0}\rho, && \nabla\times\mathbf{E}+\partial_t\mathbf{B}=0, \\
-  \nabla\cdot\mathbf{B} = 0,
-  && \nabla\times\mathbf{B}+\frac{1}{c^2}\partial_t\mathbf{E}=\mu_0\mathbf{j},
+  \nabla\cdot\vec{E} = \frac{1}{\varepsilon_0}\rho, && \nabla\times\vec{E}+\partial_t\vec{B}=0, \\
+  \nabla\cdot\vec{B} = 0,
+  && \nabla\times\vec{B}+\frac{1}{c^2}\partial_t\vec{E}=\mu_0\vec{j},
 \end{align*}
 %
-where $c^2 = \frac{1}{\epsilon_0\mu_0}$. The two equations containing the charge and current densities $\rho$ and $\mathbf{j}$ on the RHS are called \emph{inhomogeneous} while the two equations with trivial RHS are called \emph{homogeneous}.
+where $c^2 = \frac{1}{\epsilon_0\mu_0}$. The two equations containing the charge and current densities $\rho$ and $\vec{j}$ on the RHS are called \emph{inhomogeneous} while the two equations with trivial RHS are called \emph{homogeneous}.
 
 \section*{Continuity and conserved quantities}
 
-A continuity equation is a particular partial differential equation that describes the transport of some quantity $q$. It links the time rate of change of that quantities density $\rho$ with the space rate of change of the quantities current density $\mathbf{j}$
+A continuity equation is a particular partial differential equation that describes the transport of some quantity $q$. It links the time rate of change of that quantities density $\rho$ with the space rate of change of the quantities current density $\vec{j}$
 \begin{equation*}
-    \nabla\cdot\mathbf{j}+\partial_t\rho=\sigma,
+    \nabla\cdot\vec{j}+\partial_t\rho=\sigma,
 \end{equation*}
 where
 \begin{itemize}
   \item $\rho$ is the amount of the quantity $q$ per unit volume,
-  \item $\mathbf{j}$ is the flux of $q$,
+  \item $\vec{j}$ is the flux of $q$,
   \item $\sigma$ is the generation of $q$ per unit volume per unit time. Terms that generate ($\sigma > 0$) or remove ($\sigma < 0$) $q$ are referred to as ``sources'' and ``sinks'' respectively.
 \end{itemize}
 %
 If the quantity $q$ is \emph{conserved}, the generation $\sigma$ vanishes and the equation reads
 \begin{equation*}
-    \nabla\cdot\mathbf{j}+\partial_t\rho=0.
+    \nabla\cdot\vec{j}+\partial_t\rho=0.
 \end{equation*}
+
+\section*{Coordinates}
+
+\subsection*{Polar $(r, \varphi)$}
+
+\begin{itemize}
+  \item Cartesian coordinates:\\
+        $x = r \cos \varphi$\\
+        $y = r \sin \varphi$
+  \item Unit vectors:\\
+        $\uvec{r} = (\cos \varphi, \sin \varphi),$\\
+        $\uvec{\varphi} = \uvec{k} \times \uvec{r} = (-\sin \varphi, \cos \varphi)$ \quad (with $\uvec{k}$ normal to plane of motion)
+  \item $\vec{r} = (x, y) = r(\cos{\varphi}, \sin \varphi) = r\uvec{r}$,\\
+        $\vec{v} = \vec{\dot{r}} = (\dot{x}, \dot{y}) = \dot{r}\uvec{r} + r \dot{\varphi} \uvec{\varphi}$
+  \item $\det J = r$ \quad (Jacobian determinant)
+  \item $\dif s^2 = \dif r^2+r^2\dif \varphi^2$ \quad (Line element)
+  \item $\dif A = \dif x \dif y = r\dif r \dif \varphi$ \quad (Area element)
+\end{itemize}
+
+\subsection*{Spherical $(r, \theta, \varphi)$}
+
+\begin{itemize}
+  \item $\vec{r} = r \hat{\vec{r}}$\\
+        $\vec{v} = \dot{\vec{r}} = \dot{r} \hat{\vec{r}} + r \dot{\theta} \uvec{\theta} + r \dot{\varphi} \sin\theta \uvec{\varphi}$\\
+        $\dif \vec{r} = \dif r \uvec{r} + r \dif \theta \uvec{\theta} + r \sin \theta \dif \varphi \uvec{\varphi}$
+  \item Cartesian coordinates:\\
+        $x = r \sin\theta \cos\varphi$\\
+        $y = r \sin\theta \sin\varphi$\\
+        $z = r \cos\theta$
+  \item $\dif S_r = r^2 sin\theta \dif \theta \dif \varphi$ \quad (Surface element, $\theta$ to $\theta + \dif \theta$, $\varphi$ to $\varphi + \dif \varphi$, fixed radius $r$)
+  \item $\dif \Omega = \frac{\dif S_r}{r^2} = \sin\theta \dif \varphi$ \quad (Solid angle)
+  \item $\dif V = r^2 \sin\theta \dif r \dif \theta \dif \varphi$ \quad (Volume element)
+  \item $\dif s^2 = \dif r^2 + r^2 \dif \theta^2 + r^2 \sin^2 \theta \dif \varphi^2$ (Line element)
+\end{itemize}
 
 \section*{Vector calculus identities}
 
-Let $\{\mathbf{x}, \mathbf{A}, \mathbf{B}, \mathbf{C}\} \in \mathbf{R}^n$, $\nabla_i \coloneqq \pd{}{x_i}$ and $r \coloneqq \|\mathbf{x}\| = \sqrt{x_i x_i}$ for the following relations.
+Let $\{\vec{x}, \vec{A}, \vec{B}, \vec{C}\} \in \mathbf{R}^n$, $\nabla_i \coloneqq \pd{}{x_i}$ and $r \coloneqq \|\vec{x}\| = \sqrt{x_i x_i}$ for the following relations.
 \begin{enumerate}[(i)]
   \item $\pd{x_i}{x_j}=\delta_{ij}$
   \item $\pd{r}{x_j}=\frac{x_j}{r}$
   \item $\pd{}{x_j}\frac{1}{r}=-\frac{x_j}{r^3}$
-  \item $\mathbf{A}\times(\mathbf{B}\times\mathbf{C}) = \mathbf{B}(\mathbf{A}\cdot\mathbf{C})-\mathbf{C}(\mathbf{A}\cdot\mathbf{B})$
-  \item $\operatorname{div}(\operatorname{rot}\mathbf{A}) =
-  \nabla\cdot(\nabla\times\mathbf{A}) = 0\label{eq:divrot}$
-  \item $\operatorname{rot}(\operatorname{grad}\mathbf{\varphi}) =
-  \nabla\times(\nabla\mathbf{\varphi}) = \mathbf{0}\label{eq:rotgrad}$
+  \item $\vec{A}\times(\vec{B}\times\vec{C}) = \vec{B}(\vec{A}\cdot\vec{C})-\vec{C}(\vec{A}\cdot\vec{B})$
+  \item $\operatorname{div}(\operatorname{rot}\vec{A}) =
+  \nabla\cdot(\nabla\times\vec{A}) = 0\label{eq:divrot}$
+  \item $\operatorname{rot}(\operatorname{grad}\vec{\varphi}) =
+  \nabla\times(\nabla\vec{\varphi}) = \vec{0}\label{eq:rotgrad}$
 \end{enumerate}
 
 \begin{proof}
   For \eqref{eq:divrot} observe that
   \begin{align*}
-    \nabla\cdot(\nabla\times\mathbf{A})
+    \nabla\cdot(\nabla\times\vec{A})
     &= \varepsilon_{ijk} \nabla_i \nabla_j A_k \\
     &= \varepsilon_{jik} \nabla_j \nabla_i A_k
     && \text{Rename $i \leftrightarrow j$} \\
@@ -71,9 +110,9 @@ Let $\{\mathbf{x}, \mathbf{A}, \mathbf{B}, \mathbf{C}\} \in \mathbf{R}^n$, $\nab
     && \text{Schwarz's theorem} \\
     &= -\varepsilon_{ijk} \nabla_i \nabla_j A_k
     && \text{Antisymmetry of $\varepsilon_{ijk}$} \\
-    &= -\nabla\cdot(\nabla\times\mathbf{A}),
+    &= -\nabla\cdot(\nabla\times\vec{A}),
   \end{align*}
-  and since $\nabla\cdot(\nabla\times\mathbf{A})$ is equal to its negative value it must vanish.
+  and since $\nabla\cdot(\nabla\times\vec{A})$ is equal to its negative value it must vanish.
 \end{proof}
 
 \section*{Distributions}
@@ -90,10 +129,10 @@ Below $\delta$ is the Dirac delta function, $\theta$ is the Heaviside function, 
   %
   \begin{align*}
     \left<\od{}{x}\operatorname{sgn},\varphi\right> &= -\left<\operatorname{sgn},\od{}{x}\varphi\right> \\
-    &=  -\int_\mathbf{R}\operatorname{sgn}(x)\od{}{x}\varphi(x)\operatorname{dx} \\
+    &=  -\int_{\mathbf{R}}\operatorname{sgn}(x)\od{}{x}\varphi(x)\operatorname{dx} \\
     &= -(-\varphi(x)\rvert_{-\infty}^0+\varphi(x)\rvert_{0}^\infty) \\
     &= 2\varphi(0) \\
-    &= \int_\mathbf{R}\delta(x)\varphi(x)\dif x\\
+    &= \int_{\mathbf{R}}\delta(x)\varphi(x)\dif x\\
     &= 2\left<\delta,\varphi\right>.\qedhere
   \end{align*}
 \end{proof}
